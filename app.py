@@ -34,8 +34,8 @@ def default():
 # light on or off
 @app.route("/light", methods=['POST'])
 def onAction():
-	status = request.form["set"]
-	pin = request.form["id"]
+	status = request.form["status"]
+	pin = request.form["pin"]
 	if status == "on":
 		pin = 0
 		GPIO.output(pin, GPIO.LOW)
