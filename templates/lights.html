@@ -1,27 +1,29 @@
 {% extends "header.html" %}
 {% block content %}
-	<div class="container">	
-		<div class="row">
-			<div class="two-thirds columns">
-				<h2>Lights on RPi</h2>
+    <div class="container">
+        <div class="row">
+            <div class="two-thirds columns">
+                <h2>Lights on RPi</h2>
                 <table>
                     <tr>
-                {% for pin in relay_pins %}
-				{% if session[pin] == 0 %}
-                    <td id="cell-{{ row }}">
-					<img id="{{ pin }}" src="static/images/lampoff.png"></p>
-					<input type="button" onclick="set_status({{ pin }}, 'on');" value="Turn on" id="pin_{{ pin }}">
-                    </td>
-				{% else %}
-                    <td id="cell-{{ row }}">
-					<img id="{{ pin }}" src="static/images/lampon.png"></p>
-					<input type="button" onclick="set_status({{ pin }}, 'off');" value="Turn off" id="pin_{{ pin }}">
-                    </td>
-				{% endif %}
-                {% endfor %}
+                        {% for pin in relay_pins %}
+                            {% if session[pin] == 0 %}
+                                <td>
+                                    <img id="{{ pin }}" src="static/images/lampoff.png"></p>
+                                    <input type="button" onclick="set_status({{ pin }}, 'on');" value="Turn on"
+                                           id="pin_{{ pin }}">
+                                </td>
+                            {% else %}
+                                <td id="cell-{{ row }}">
+                                    <img id="{{ pin }}" src="static/images/lampon.png"></p>
+                                    <input type="button" onclick="set_status({{ pin }}, 'off');" value="Turn off"
+                                           id="pin_{{ pin }}">
+                                </td>
+                            {% endif %}
+                        {% endfor %}
                     </tr>
                 </table>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
