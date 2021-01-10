@@ -40,13 +40,12 @@ def onAction():
 	pin = request.form["pin"]
 	GPIO.setup(int(pin), GPIO.OUT)
 	if status == "on":
-		pin = 0
-		GPIO.output(pin, GPIO.LOW)
+		GPIO.output(int(pin), 0)
 		#message =  "Light on!"
 		print ("on")
 	if status == "off":
 		pin = 1
-		GPIO.output(pin, GPIO.HIGH)
+		GPIO.output(int(pin), 1)
 		#message = "Light off!"
 		print ("off")
 	
