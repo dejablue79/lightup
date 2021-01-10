@@ -6,10 +6,11 @@ from os import urandom, getenv
 app = Flask(__name__)
 app.secret_key = urandom(24)
 #pin connected to relay
-relay_pins = getenv("relay_pin", [27, 22, 23, 24])
+# relay_pins = getenv("relay_pin", [27, 22, 23, 24])
+relay_pins = [27, 22, 23, 24]
 
-GPIO.setmode (GPIO.BCM)
-GPIO.setup(relay_pins, GPIO.OUT)
+GPIO.setmode(GPIO.BCM)
+
 
 @app.before_first_request
 def before_first_request():
@@ -34,8 +35,10 @@ def default():
 # light on or off
 @app.route("/light", methods=['POST'])
 def onAction():
+
 	status = request.form["status"]
 	pin = request.form["pin"]
+	GPIO.setup(pin, GPIO.OUT)
 	if status == "on":
 		pin = 0
 		GPIO.output(pin, GPIO.LOW)
