@@ -1,16 +1,5 @@
 {% extends "header.html" %}
 {% block content %}
-	<script type="text/javascript">
-		$(function() {
-			$('#lighton').click(function() {
-				$('#light').attr("src","static/images/lampon.png");
-			
-			});
-			$('#lightoff').click(function() {
-				$('#light').attr("src","static/images/lampoff.png");
-			});
-		});
-	</script>
 	<div class="container">	
 		<div class="row">
 			<div class="two-thirds columns">
@@ -20,13 +9,13 @@
                 {% for pin in relay_pins %}
 				{% if session[pin] == 0 %}
                     <td id="cell-{{ row }}">
-					<img src="static/images/lampoff.png" id="light"></p>
-					<input type="button" onclick="set_status({{ pin }}, 'on');" value="Turn on" id="{{ pin }}">
+					<img id="{{ pin }}" src="static/images/lampoff.png"></p>
+					<input type="button" onclick="set_status({{ pin }}, 'on');" value="Turn on" id="pin_{{ pin }}">
                     </td>
 				{% else %}
                     <td id="cell-{{ row }}">
-					<img src="static/images/lampon.png" id="light"></p>
-					<input type="button" onclick="set_status({{ pin }}, 'off');" value="Turn off" id="lightoff">
+					<img id="{{ pin }}" src="static/images/lampon.png"></p>
+					<input type="button" onclick="set_status({{ pin }}, 'off');" value="Turn off" id="pin_{{ pin }}">
                     </td>
 				{% endif %}
                 {% endfor %}
