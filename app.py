@@ -9,12 +9,12 @@ app.secret_key = urandom(24)
 relay_pins = getenv("relay_pin", [27, 22, 23, 24])
 
 GPIO.setmode (GPIO.BCM)
-
+GPIO.setup(relay_pins, GPIO.OUT)
 
 @app.before_first_request
 def before_first_request():
 	app.logger.info("Checking current status")
-	GPIO.setup(relay_pins, GPIO.OUT)
+
 	for pin in relay_pins:
 		session[pin] = GPIO.input(pin)
 		app.logger.info(f"{pin} is set to {GPIO.input(pin)}")
