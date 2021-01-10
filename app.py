@@ -32,7 +32,7 @@ def default():
 
 # set a route for action
 # light on or off
-@app.route("/light")
+@app.route("/light", methods=['POST'])
 def onAction():
 	status = request.form["set"]
 	pin = request.form["id"]
