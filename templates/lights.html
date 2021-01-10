@@ -15,14 +15,15 @@
 		<div class="row">
 			<div class="two-thirds columns">
 				<h2>Lights on RPi</h2>
-				<!-- check pin state -->
-				{% if pin == 1 %}
+                {% for pin in data["relay_pins"] %}
+				{% if data["session"][pin] == 0 %}
 					<img src="static/images/lampoff.png" id="light"></p>
-					<input type="button" onclick="window.location='/on';" value="Turn on"/ id="lighton">
+					<input type="button" onclick="window.location='/light/?set=on&id={% pin %}';" value="Turn on"/ id="lighton">
 				{% else %}
 					<img src="static/images/lampon.png" id="light"></p>
-					<input type="button" onclick="window.location='/off';" value="Turn off"/ id="lightoff">
+					<input type="button" onclick="window.location='/light/?set=off&id={% pin %}';" value="Turn off"/ id="lightoff">
 				{% endif %}
+                {% endfor %}
 			</div>
 		</div>
 	</div>

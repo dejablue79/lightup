@@ -1,37 +1,49 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session, request
 import RPi.GPIO as GPIO
+from os import urandom, getenv
+
 
 app = Flask(__name__)
-
+app.secret_key = urandom(24)
 #pin connected to relay
-relay_pin = 23
-#pin state
-pin = 1
+relay_pins = getenv("relay_pin", [27, 22, 23, 24])
 
 GPIO.setmode (GPIO.BCM)
-GPIO.setup (relay_pin, GPIO.OUT)
+
+
+@app.before_first_request
+def before_first_request():
+	app.logger.info("Checking current status")
+	GPIO.setup(relay_pins, GPIO.OUT)
+	for pin in relay_pins:
+		session[pin] = GPIO.input(pin)
+		app.logger.info(f"{pin} is set to {GPIO.input(pin)}")
+
 
 #default route, without anything
 @app.route("/")
 def default():
-	# read pin state
-	pin = GPIO.input(relay_pin)
-	return render_template ('lights.html',pin=pin)
+	data: dict = {
+		"relay_pins": relay_pins,
+		"session": session
+	}
+	return render_template('lights.html', data={**data})
 
 
 # set a route for action
 # light on or off
-@app.route("/<status>")
-def onAction(status):
-	pin = 2
+@app.route("/light")
+def onAction():
+	status = request.args.get("set")
+	pin = request.args.get("id")
 	if status == "on":
 		pin = 0
-		GPIO.output (relay_pin, GPIO.LOW)
+		GPIO.output (pin, GPIO.LOW)
 		#message =  "Light on!"
 		print ("on")
 	if status == "off":
 		pin = 1
-		GPIO.output (relay_pin, GPIO.HIGH)
+		GPIO.output (pin, GPIO.HIGH)
 		#message = "Light off!"
 		print ("off")
 	
