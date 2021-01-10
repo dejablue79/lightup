@@ -4,12 +4,12 @@ function set_status(pin, status) {
         url: "/light",
         data: {"pin": pin, "status": status},
         success: function(data) {
-            if (data["status"] == "on") {
-                $(data[pin]).attr("src","static/images/lampon.png");
+            if (status == "on") {
+                $(pin).attr("src","static/images/lampon.png");
             } else {
-                $(data[pin]).attr("src","static/images/lampoff.png");
+                $(pin).attr("src","static/images/lampoff.png");
             }
-            console.log("pin " + data[pin] + " was set to: " + status);
+            console.log("pin " + pin + " was set to: " + status);
         }
     });
 }
