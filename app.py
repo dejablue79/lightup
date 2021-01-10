@@ -15,7 +15,7 @@ GPIO.setmode(GPIO.BCM)
 @app.before_first_request
 def before_first_request():
 	app.logger.info("Checking current status")
-
+	GPIO.setup(relay_pins, GPIO.OUT)
 	for pin in relay_pins:
 		session[pin] = GPIO.input(pin)
 		app.logger.info(f"{pin} is set to {GPIO.input(pin)}")
