@@ -21,7 +21,7 @@
 				{% if data["session"][pin] == 0 %}
                     <td id="cell-{{ row }}">
 					<img src="static/images/lampoff.png" id="light"></p>
-					<input type="button" onclick="set_status({{ pin }}, 'on');" value="Turn on" id="lighton">
+					<input type="button" onclick="set_status({{ pin }}, 'on');" value="Turn on" id="{{ pin }}">
                     </td>
 				{% else %}
                     <td id="cell-{{ row }}">
