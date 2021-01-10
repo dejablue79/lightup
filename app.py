@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session, request, jsonify
 import RPi.GPIO as GPIO
 from os import urandom, getenv
 
@@ -43,7 +43,7 @@ def onAction():
 		GPIO.output(int(pin), 1)
 		#message = "Light off!"
 		print ("off")
-	return {"pin": pin, "status": status}
+	return jsonify(pin=pin, status=status)
 	
 	# return to the template with new info
 	return render_template ('lights.html',pin=pin)
