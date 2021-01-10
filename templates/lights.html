@@ -28,3 +28,11 @@
 		</div>
 	</div>
 {% endblock %}
+
+<table>
+    <tr>
+        {% for row in data["relay_pins"] %}
+            <td id="cell-{{ row }}">{{ row }}</td>
+        {% endfor %}
+    </tr>
+</table>
