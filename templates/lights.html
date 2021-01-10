@@ -17,8 +17,8 @@
 				<h2>Lights on RPi</h2>
                 <table>
                     <tr>
-                {% for pin in data["relay_pins"] %}
-				{% if data["session"][pin] == 0 %}
+                {% for pin in relay_pins %}
+				{% if session[pin] == 0 %}
                     <td id="cell-{{ row }}">
 					<img src="static/images/lampoff.png" id="light"></p>
 					<input type="button" onclick="set_status({{ pin }}, 'on');" value="Turn on" id="{{ pin }}">
@@ -36,11 +36,3 @@
 		</div>
 	</div>
 {% endblock %}
-
-<table>
-    <tr>
-        {% for row in data["relay_pins"] %}
-            <td id="cell-{{ row }}">{{ row }}</td>
-        {% endfor %}
-    </tr>
-</table>
