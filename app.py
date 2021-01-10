@@ -34,16 +34,16 @@ def default():
 # light on or off
 @app.route("/light")
 def onAction():
-	status = request.args.get("set")
-	pin = request.args.get("id")
+	status = request.form["set"]
+	pin = request.form["id"]
 	if status == "on":
 		pin = 0
-		GPIO.output (pin, GPIO.LOW)
+		GPIO.output(pin, GPIO.LOW)
 		#message =  "Light on!"
 		print ("on")
 	if status == "off":
 		pin = 1
-		GPIO.output (pin, GPIO.HIGH)
+		GPIO.output(pin, GPIO.HIGH)
 		#message = "Light off!"
 		print ("off")
 	
