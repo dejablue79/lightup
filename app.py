@@ -28,7 +28,10 @@ def default():
 		"relay_pins": relay_pins,
 		"session": session
 	}
-	return render_template('lights.html', data={**data})
+	return render_template('lights.html', data={
+		"relay_pins": relay_pins,
+		"session": session
+	})
 
 
 # set a route for action
