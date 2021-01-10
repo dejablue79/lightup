@@ -38,7 +38,7 @@ def onAction():
 
 	status = request.form["status"]
 	pin = request.form["pin"]
-	GPIO.setup(pin, GPIO.OUT)
+	GPIO.setup(int(pin), GPIO.OUT)
 	if status == "on":
 		pin = 0
 		GPIO.output(pin, GPIO.LOW)
