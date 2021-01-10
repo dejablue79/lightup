@@ -31,7 +31,6 @@ def default():
 # light on or off
 @app.route("/light", methods=['POST'])
 def onAction():
-
 	status = request.form["status"]
 	pin = request.form["pin"]
 	GPIO.setup(int(pin), GPIO.OUT)
@@ -44,6 +43,7 @@ def onAction():
 		GPIO.output(int(pin), 1)
 		#message = "Light off!"
 		print ("off")
+	return {"pin": pin, "status": status}
 	
 	# return to the template with new info
 	return render_template ('lights.html',pin=pin)
