@@ -6,7 +6,7 @@ $( document ).ready(function() {
             for (let item in data) {
                 if (data[item] === 0) {
                     $(`#${item}`).attr("src","static/images/lampon.png");
-                    $(`#pin_${item}`)..attr({ onclick:`set_status(${ item }, 'off')`, value: "Turn off" });
+                    $(`#pin_${item}`).attr({ onclick:`set_status(${ item }, 'off')`, value: "Turn off" });
                 } else {
                     $(`#${item}`).attr("src","static/images/lampoff.png");
                     $(`#pin_${item}`).attr({ onclick:`set_status(${ item }, 'on')`, value: "Turn on" });
