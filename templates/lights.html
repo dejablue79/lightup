@@ -17,22 +17,18 @@
 				<h2>Lights on RPi</h2>
                 {% for pin in data["relay_pins"] %}
 				{% if data["session"][pin] == 0 %}
+                    <td id="cell-{{ row }}">
 					<img src="static/images/lampoff.png" id="light"></p>
 					<input type="button" onclick="window.location='/light/?set=on&id={{ pin }}';" value="Turn on"/ id="lighton">
+                    </td>
 				{% else %}
+                    <td id="cell-{{ row }}">
 					<img src="static/images/lampon.png" id="light"></p>
 					<input type="button" onclick="window.location='/light/?set=off&id={{ pin }}';" value="Turn off"/ id="lightoff">
+                    </td>
 				{% endif %}
                 {% endfor %}
 			</div>
 		</div>
 	</div>
 {% endblock %}
-
-<table>
-    <tr>
-        {% for row in data["relay_pins"] %}
-            <td id="cell-{{ row }}">{{ row }}</td>
-        {% endfor %}
-    </tr>
-</table>
