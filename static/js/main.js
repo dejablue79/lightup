@@ -3,6 +3,6 @@ function set_status(pin, status) {
         type: "POST",
         url: "/light",
         data: {"pin": pin, "status": status},
-        success: success
+        success: {console.log("pin " + pin + " was set to: " + status)}
     });
 }
