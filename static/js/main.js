@@ -3,13 +3,13 @@ function set_status(pin, status) {
         type: "POST",
         url: "/light",
         data: {"pin": pin, "status": status},
-        success: function(pin, status) {
-            if (status == "on") {
-                $(pin).attr("src","static/images/lampon.png");
+        success: function(data) {
+            if (data["status"] == "on") {
+                $(data[pin]).attr("src","static/images/lampon.png");
             } else {
-                $(pin).attr("src","static/images/lampoff.png");
+                $(data[pin]).attr("src","static/images/lampoff.png");
             }
-            console.log("pin " + pin + " was set to: " + status);
+            console.log("pin " + data[pin] + " was set to: " + status);
         }
     });
 }
