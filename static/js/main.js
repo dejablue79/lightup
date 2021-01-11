@@ -1,34 +1,24 @@
 $( document ).ready(function() {
-    $.ajax({
-        type: "POST",
-        url: "/check",
-        success: function(data) {
-            for (let item in data) {
-                if (data[item] === 0) {
-                    $(`#${item}`).attr("src","static/images/lampon.png");
-                    $(`#pin_${item}`).attr({ onclick:`set_status(${ item }, 'off')`, value: "Turn off" });
-                } else {
-                    $(`#${item}`).attr("src","static/images/lampoff.png");
-                    $(`#pin_${item}`).attr({ onclick:`set_status(${ item }, 'on')`, value: "Turn on" });
-                }
-            }
-        }
-    });
+    send_post("/check");
 });
 function set_status(pin, status) {
+    send_post("/light", pin, status);
+}
+
+function send_post(url, pin="", status="") {
     $.ajax({
         type: "POST",
-        url: "/light",
+        url: `/${url}`,
         data: {"pin": pin, "status": status},
         success: function(data) {
-            if (data["status"] === "on") {
+            if (data["status"] === "on" || data["status"] === 0) {
                 $(`#${data["pin"]}`).attr("src","static/images/lampon.png");
                 $("#pin_" + data["pin"]).attr({ onclick:`set_status(${ data["pin"] }, 'off')`, value: "Turn off" });
             } else {
                 $(`#${data["pin"]}`).attr("src","static/images/lampoff.png");
                 $(`#pin_${data["pin"]}`).attr({ onclick:`set_status(${ data["pin"] }, 'on')`, value: "Turn on" });
             }
-            console.log("pin " + pin + " was set to: " + status);
+            console.log(`pin ${pin} was set to:${status}`);
         }
     });
 }
