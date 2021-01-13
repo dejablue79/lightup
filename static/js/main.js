@@ -1,6 +1,8 @@
 $( document ).ready(function() {
     send_post("/check");
+    setTimeout(check_server,5000);
 });
+
 function set_status(pin, status) {
     send_post("/light", pin, status);
 }
@@ -19,6 +21,22 @@ function send_post(url, pin="", status="") {
                 $(`#pin_${data["pin"]}`).attr({ onclick:`set_status(${ data["pin"] }, 'on')`, value: "Turn on" });
             }
             console.log(`pin ${pin} was set to:${status}`);
+        }
+    });
+}
+
+function check_server(){
+    $.ajax({
+        url: '/liveness',
+        type: 'POST',
+        error: function (){
+            alert("Lost Connection to Server");
+        },
+        success: function(data){
+            console.log(data)
+        },
+        complete:function(data){
+            setTimeout(check_server,5000);
         }
     });
 }

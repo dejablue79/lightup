@@ -21,10 +21,14 @@ def before_first_request():
 		app.logger.info(f"{pin} is set to {GPIO.input(pin)}")
 
 
-#default route, without anything
 @app.route("/")
 def default():
 	return render_template('lights.html', relay_pins=relay_pins, session=session)
+
+
+@app.route("/liveness", methods=['POST'])
+def liveness():
+	return True
 
 
 @app.route("/check", methods=['POST'])
@@ -36,8 +40,7 @@ def check():
 		app.logger.info(f"{pin} is set to {GPIO.input(pin)}")
 	return jsonify(data)
 
-# set a route for action
-# light on or off
+
 @app.route("/light", methods=['POST'])
 def onAction():
 	status = request.form["status"]
@@ -50,9 +53,7 @@ def onAction():
 		GPIO.output(pin, 1)
 		print("off")
 	return jsonify(pin=pin, status=status)
-	
-	# return to the template with new info
-	return render_template ('lights.html',pin=pin)
+
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=8080, debug=True)
