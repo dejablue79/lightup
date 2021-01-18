@@ -1,10 +1,10 @@
 $( document ).ready(function() {
-//     send_post("check");
+    send_post("check");
     setTimeout(check_server,5000);
 });
 
 function set_status(pin, status) {
-    send_post("/light", pin, status);
+    send_post("light", pin, status);
 }
 
 function send_post(url, pin="", status="") {
