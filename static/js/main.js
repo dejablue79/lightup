@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    send_post("check");
+//     send_post("check");
     setTimeout(check_server,5000);
 });
 
