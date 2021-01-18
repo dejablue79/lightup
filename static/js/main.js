@@ -31,8 +31,14 @@ function check_server(){
         type: 'POST',
         error: function (){
             alert("Lost Connection to Server");
+            if ( $(alert).css('display') == 'none' || $(alert).css("visibility") == "hidden"){
+                $("alert").show();
+            }
         },
         success: function(data){
+            if ( $(alert).css('display') != 'none' || $(alert).css("visibility") != "hidden"){
+                $("alert").hide();
+            }
             console.log(data)
         },
         complete:function(data){
